@@ -1,4 +1,4 @@
-name: CI
+name: Security
 
 on:
   push:
@@ -7,57 +7,13 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-    name: Build, Lint, and Test
+  audit:
+    name: NPM Audit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-          
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Format Check
-        run: npx prettier --check "src/**/*.{ts,json}"
-
-      - name: Test
-        run: npm test
-
-      - name: Build
-        run: npm run build
-
       - name: Security Audit
         run: npm audit --audit-level=high
-
-  codeql:
-    name: CodeQL Security Scan
-    runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-      actions: read
-      contents: read
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: javascript-typescript
-
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v3
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
 
   semgrep:
     name: Semgrep SAST
@@ -112,6 +68,25 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  codeql:
+    name: CodeQL Security Scan
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
 
   verified-commit:
     name: Verify Signed Commit

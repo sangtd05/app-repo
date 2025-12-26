@@ -33,16 +33,19 @@ This project demonstrates a robust DevOps pipeline using GitHub Actions for a No
 
 ## GitHub Actions
 
-### CI (`ci.yml`)
-Triggers on Pull Requests and Pushes to `main`. Verified checks must pass.
-- **Jobs**:
-    - **Build, Lint, Test**
-    - **Security Audit**: `npm audit`
-    - **CodeQL**: Deep code analysis.
-    - **Semgrep**: Static Analysis Security Testing (SAST).
-    - **Trivy**: Scanning filesystem and Docker image for vulnerabilities.
-    - **SonarCloud**: Code quality and security hotspots.
-    - **Verified Commit**: Checks for GPG signatures.
+### CI Workflows
+Triggers on Pull Requests and Pushes to `main`.
+- **`lint.yml`**: ESLint & Prettier.
+- **`test.yml`**: Jest Unit Tests.
+- **`build.yml`**: App Build & Docker Build.
+- **`security.yml`**:
+    - `npm audit`
+    - CodeQL
+    - Semgrep (SAST)
+    - Trivy (FS & Image)
+    - SonarCloud
+    - Verified Commit Check
+- **`renovate.yml`**: Self-hosted Renovate Bot (runs every 4 hours).
 
 ### Release (`release.yml`)
 Triggers on Push to `main`. Requires `GITHUB_TOKEN` (default).
@@ -52,4 +55,8 @@ Triggers on Push to `main`. Requires `GITHUB_TOKEN` (default).
 
 ## Badges
 
-![CI](https://github.com/USER/REPO/actions/workflows/ci.yml/badge.svg)
+[![Lint](https://github.com/USER/REPO/actions/workflows/lint.yml/badge.svg)](https://github.com/USER/REPO/actions/workflows/lint.yml)
+[![Test](https://github.com/USER/REPO/actions/workflows/test.yml/badge.svg)](https://github.com/USER/REPO/actions/workflows/test.yml)
+[![Build](https://github.com/USER/REPO/actions/workflows/build.yml/badge.svg)](https://github.com/USER/REPO/actions/workflows/build.yml)
+[![Security](https://github.com/USER/REPO/actions/workflows/security.yml/badge.svg)](https://github.com/USER/REPO/actions/workflows/security.yml)
+
