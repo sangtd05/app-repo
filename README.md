@@ -52,11 +52,3 @@ Triggers on Push to `main`. Requires `GITHUB_TOKEN` (default).
 
 ### Dependency Updates
 **Renovate Bot** is configured (`renovate.json`) to automatically create Pull Requests for dependency updates on weekends.
-
-## Badges
-
-[![Lint](https://github.com/USER/REPO/actions/workflows/lint.yml/badge.svg)](https://github.com/USER/REPO/actions/workflows/lint.yml)
-[![Test](https://github.com/USER/REPO/actions/workflows/test.yml/badge.svg)](https://github.com/USER/REPO/actions/workflows/test.yml)
-[![Build](https://github.com/USER/REPO/actions/workflows/build.yml/badge.svg)](https://github.com/USER/REPO/actions/workflows/build.yml)
-[![Security](https://github.com/USER/REPO/actions/workflows/security.yml/badge.svg)](https://github.com/USER/REPO/actions/workflows/security.yml)
-
